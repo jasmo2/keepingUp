@@ -23,8 +23,11 @@ agremos una carpeta llamada **src** y dentro otra carpeta llamada components don
 
     |-- todoList
       |-- src
-        |-- styles
+        |-- main.js
+        |-- router.js
         |-- components
+          |-- container.js
+
 ahora procedamos a crear nuestro primer componente:
 **container.js**
 
