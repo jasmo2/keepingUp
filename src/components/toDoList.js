@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { ListView, Text } from 'react-native';
+import { ListView } from 'react-native';
+
+import Item from './item';
+
 
 class ToDoList extends Component {
   constructor(props) {
@@ -14,7 +17,13 @@ class ToDoList extends Component {
     return (
       <ListView
         dataSource={this.state.dataSource}
-        renderRow={(rowData) => <Text>{rowData.txt}</Text>}
+        renderRow={(rowData, sectionID, rowID) => (
+          <Item
+            item={rowData}
+            onPress={() => this.props.onPressItem(rowData, rowID)}
+            onLongPress={() => this.props.onLongPressItem(rowData, rowID)}
+          />
+        )}
       />
     );
   }
