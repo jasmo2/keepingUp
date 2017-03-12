@@ -4,7 +4,7 @@
  * @flow
  */
 
- import React, { Component } from 'react';
+ import React from 'react'; //eslint-disable-line
  import { AppRegistry } from 'react-native';
  import todoList from './src/main';
 
