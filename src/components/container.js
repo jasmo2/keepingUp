@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableHighlight } from 'react-native';
+import { Alert, Text, View, TouchableHighlight } from 'react-native';
 
 import ToDoList from './toDoList';
 
@@ -12,7 +12,21 @@ class Container extends Component {
                { txt: 'To-Doing it', complete: true }
            ]
        };
+       this.openItem = this.openItem.bind(this);
    }
+
+   alertMenu() {
+      Alert.alert(
+        'Quick Menu',
+        'presión Larga'
+      );
+    }
+    openItem() {
+      Alert.alert(
+        'tap',
+        'tap tap.. tap'
+      );
+    }
 
   render() {
     const { buttonStyle, buttonText, container, newButton } = styles;
@@ -25,7 +39,7 @@ class Container extends Component {
         <ToDoList
           items={this.state.items}
           onPressItem={this.openItem}
-          onLongPressItem={this.AlertMenu}
+          onLongPressItem={this.alertMenu.bind(this)}
         />
         <TouchableHighlight
           style={[buttonStyle, newButton]}
