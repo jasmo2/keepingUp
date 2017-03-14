@@ -55,7 +55,7 @@ También es esta sección manejaremos los metodos de presionar el _To-Do_ desde 
 
 En este paso nos aproximamos a la creación de nuestro To-Do List.
 
-Agregaremos un último componente que será el encargado edición y creación de items.  TAmbién usaremos una librería externa llamada [tcomb-form-native](https://github.com/gcanti/tcomb-form-native) la cual debemos instalar con:
+Agregaremos un último componente que será el encargado edición y creación de items.  También usaremos una librería externa llamada [tcomb-form-native](https://github.com/gcanti/tcomb-form-native) la cual debemos instalar con:
 
 `npm install tcomb-form-native --save`
 
@@ -63,3 +63,19 @@ Agregaremos un último componente que será el encargado edición y creación de
 esta nos servirá para realizar validaciones posteriormente.
 
 También realizaremos unos cambios en la navegación para poder pasar los argumentos de nuestros _To-Do's_
+
+<hr>
+## Bonus Redux Getting Started
+
+En este paso se implementará el _store_ de redux y toda su arquitectura. Aquí se vé reflejado la siguiente estructura:
+
+|-- todoList
+  |-- src
+    |-- actions
+    |-- reducers
+El primer paso es instalar redux y el puente con react.
+
+`npm install redux --save`
+`npm install react-redux --save`
+
+Hacemos refactor de todos los componentes para cambiar el viejo _estado_ por un nuevo **estado global dentro del _store_ de REDUX**
