@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Alert, Text, View, TouchableHighlight } from 'react-native';
-
+import { Actions } from 'react-native-router-flux';
 import ToDoList from './toDoList';
 
 class Container extends Component {
@@ -14,18 +14,19 @@ class Container extends Component {
        };
        this.openItem = this.openItem.bind(this);
    }
-
+   componentWillReceiveProps(nextProps) {
+     this.setState({
+       items: nextProps.items
+     });
+   }
    alertMenu() {
       Alert.alert(
         'Quick Menu',
         'presión Larga'
       );
     }
-    openItem() {
-      Alert.alert(
-        'tap',
-        'tap tap.. tap'
-      );
+    openItem(rowData, rowID) {
+      Actions.edit({ item: rowData, items: this.state.items, id: rowID });
     }
 
   render() {

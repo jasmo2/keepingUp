@@ -5,15 +5,12 @@ import Item from './item';
 
 
 class ToDoList extends Component {
-  constructor(props) {
-    super(props);
+
+  render() {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this.state = {
       dataSource: ds.cloneWithRows(this.props.items),
     };
-  }
-
-  render() {
     return (
       <ListView
         dataSource={this.state.dataSource}
