@@ -47,7 +47,7 @@ class ToDoEdit extends Component {
         if (value) {
               const items = this.props.items;
               const index = this.props.id;
-              const objVal = { txt: value.txt, complete: value.complete }
+              const objVal = { txt: value.txt, complete: value.complete };
               if (index) {
                   items[index] = objVal;
               } else {
