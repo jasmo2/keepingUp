@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Actions } from 'react-native-router-flux';
+import { ActionConst, Actions } from 'react-native-router-flux';
 import t from 'tcomb-form-native';
-
+import { connect } from 'react-redux';
 
 import {
   View,
@@ -9,6 +9,7 @@ import {
   Text
 } from 'react-native';
 
+import { setItems } from '../actions';
 
 const Form = t.form.Form;
 
@@ -29,36 +30,25 @@ const myToDo = t.struct({
 
 
 class ToDoEdit extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      item: this.props.item,
-      container: this.props.container
-    };
-  }
 
-  componentDidMount() {
-    this.setState({
-      item: this.props.item
-    });
+  toDoUpdate() {
+      const value = this.refs.form.getValue();
+      if (value) {
+            const items = this.props.items;
+            const itemId = this.props.itemId;
+            const objVal = { txt: value.txt, complete: value.complete };
+            if (itemId) {
+                items[itemId] = objVal;
+            } else {
+                items.push(objVal);
+            }
+            /*
+              { items } == { items: items }
+            */
+            this.props.setItems(items);
+            Actions.pop();
+      }
   }
-    toDoUpdate() {
-        const value = this.refs.form.getValue();
-        if (value) {
-              const items = this.props.items;
-              const index = this.props.id;
-              const objVal = { txt: value.txt, complete: value.complete };
-              if (index) {
-                  items[index] = objVal;
-              } else {
-                  items.push(objVal);
-              }
-              /*
-                { items } == { items: items }
-              */
-              Actions.pop({ refresh: { items } });
-        }
-    }
 
     render() {
         const { todo, button, buttonText, saveButton } = styles;
@@ -68,7 +58,7 @@ class ToDoEdit extends Component {
                     ref="form"
                     type={myToDo}
                     options={options}
-                    value={this.state.item}
+                    value={this.props.item}
                 />
                 <TouchableHighlight
                     style={[button, saveButton]}
@@ -128,5 +118,12 @@ const styles = {
     }
 
 };
+const mapStateToProps = (state) => {
+  const { items } = state.itemsReducer;
+  const itemId = state.itemReducer.id;
+  const item = items[itemId];
+  return { items, item, itemId };
+};
+const mapDispatchToProps = { setItems };
 
-export default ToDoEdit;
+export default connect(mapStateToProps, mapDispatchToProps)(ToDoEdit);

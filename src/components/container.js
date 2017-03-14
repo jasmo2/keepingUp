@@ -1,23 +1,14 @@
 import React, { Component } from 'react';
 import { Alert, Text, View, TouchableHighlight } from 'react-native';
+import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import { setItem } from '../actions';
 import ToDoList from './toDoList';
 
 class Container extends Component {
   constructor(props) {
        super(props);
-       this.state = {
-           items: [
-               { txt: '¡Aprendamos react native!', complete: false },
-               { txt: 'To-Doing it', complete: true }
-           ]
-       };
        this.openItem = this.openItem.bind(this);
-   }
-   componentWillReceiveProps(nextProps) {
-     this.setState({
-       items: nextProps.items
-     });
    }
    alertMenu() {
       Alert.alert(
@@ -26,7 +17,8 @@ class Container extends Component {
       );
     }
     openItem(rowData, rowID) {
-      Actions.edit({ item: rowData, items: this.state.items, id: rowID });
+      this.props.setItem({ id: rowID });
+      Actions.edit();
     }
 
   render() {
@@ -38,7 +30,7 @@ class Container extends Component {
     return (
       <View style={container} >
         <ToDoList
-          items={this.state.items}
+          items={this.props.items}
           onPressItem={this.openItem}
           onLongPressItem={this.alertMenu.bind(this)}
         />
@@ -80,4 +72,13 @@ const styles = {
     backgroundColor: '#ffffff',
   },
 };
-export default Container;
+
+const mapStateToProps = (state) => {
+  const { items } = state.itemsReducer;
+  console.log(`items: ${JSON.stringify(items)}`);
+  return { items };
+};
+
+const mapDispatchToProps = { setItem };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Container);
